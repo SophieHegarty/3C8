@@ -31,18 +31,18 @@ void setup() {
 }
 
 
-int pulse_Q(digitalRead(Pin_Q1), digitalRead(Pin_Q2), digitalRead(Pin_Q3), digitalRead(Pin_Q4)){
-    if((Pin_Q1== LOW) && (Pin_Q2 == HIGH) && (Pin_Q3 == LOW) && (Pin_Q4 == LOW)){
+int pulse_Q(){
+    if((digitalRead(Pin_Q1== LOW) )&& digitalRead((Pin_Q2 == HIGH)) && digitalRead((Pin_Q3 == LOW)) && (digitalRead(Pin_Q4 == LOW))){
     testNumber = 1;
-  }else if(Pin_Q1== LOW) && (Pin_Q2 == HIGH) && (Pin_Q3 == LOW) && (Pin_Q4 == HIGH)){
+  }else if((digitalRead(Pin_Q1== LOW)) && digitalRead((Pin_Q2 == HIGH)) && digitalRead((Pin_Q3 == LOW)) && digitalRead((Pin_Q4 == HIGH))){
     testNumber = 2;
-  }else if(((Pin_Q1)== LOW) && ((Pin_Q2) == HIGH) && ((Pin_Q3) == HIGH) && ((Pin_Q4) == LOW)){
+  }else if(digitalRead((Pin_Q1)== LOW) && digitalRead((Pin_Q2) == HIGH) && (digitalRead(Pin_Q3) == HIGH) && (digitalRead(Pin_Q4) == LOW)){
     testNumber = 3;
-  }else if(((Pin_Q1)== LOW) && ((Pin_Q2) == HIGH) && ((Pin_Q3) == HIGH) && ((Pin_Q4) == HIGH)){
+  }else if((digitalRead(Pin_Q1)== LOW) && digitalRead(Pin_Q2) == HIGH && digitalRead(Pin_Q3) == HIGH && digitalRead(Pin_Q4) == HIGH){
     testNumber = 4;
-  }else if(((Pin_Q1)== HIGH) && ((Pin_Q2) == LOW) && ((Pin_Q3) == LOW) && ((Pin_Q4) == LOW)){
+  }else if((digitalRead(Pin_Q1)== HIGH) && (digitalRead(Pin_Q2) == LOW) && (digitalRead(Pin_Q3) == LOW) && digitalRead((Pin_Q4) == LOW)){
     testNumber = 5;
-  }else if(((Pin_Q1)== LOW) && ((Pin_Q2) == HIGH) && ((Pin_Q3) == LOW) && ((Pin_Q4) == HIGH)){
+  }else if(digitalRead((Pin_Q1)== LOW) && digitalRead((Pin_Q2) == HIGH) && digitalRead((Pin_Q3) == LOW) && digitalRead((Pin_Q4) == HIGH)){
     testNumber = 6;
   }else{
     testNumber = 0;
@@ -50,33 +50,34 @@ int pulse_Q(digitalRead(Pin_Q1), digitalRead(Pin_Q2), digitalRead(Pin_Q3), digit
   return testNumber;
 }
 
-int pulse_Char(digitalRead(Pin_A), digitalRead(Pin_B), digitalRead(Pin_C), digitalRead(Pin_D)){
-  if(((Pin_A)== LOW) && ((Pin_B) == LOW) && ((Pin_C) == HIGH) && ((Pin_D) == LOW)){
+int pulse_Char(){
+  if((digitalRead(Pin_A)== LOW) && (digitalRead(Pin_B) == LOW) && (digitalRead(Pin_C) == HIGH) && (digitalRead(Pin_D) == LOW)){
     testCharacter = 1;
-  }else if(((Pin_Q1)== LOW) && ((Pin_Q2) == HIGH) && ((Pin_Q3) == LOW) && ((Pin_Q4) == LOW)){
+  }else if((digitalRead(Pin_A)== LOW) && (digitalRead(Pin_B) == HIGH) && (digitalRead(Pin_C) == LOW) && (digitalRead(Pin_D) == LOW)){
     testCharacter = 2;
-  }else if(((Pin_Q1)== LOW) && ((Pin_Q2) == HIGH) && ((Pin_Q3) == HIGH) && ((Pin_Q4) == LOW)){
+  }else if((digitalRead(Pin_A)== LOW) && (digitalRead(Pin_B) == HIGH) && (digitalRead(Pin_C) == HIGH) && (digitalRead(Pin_D) == LOW)){
     testCharacter = 3;
-  }else if(((Pin_Q1)== HIGH) && ((Pin_Q2) == HIGH) && ((Pin_Q3) == LOW) && ((Pin_Q4) == LOW)){
+  }else if((digitalRead(Pin_A)== HIGH) && (digitalRead(Pin_B) == HIGH) && (digitalRead(Pin_C) == LOW) && (digitalRead(Pin_D) == LOW)){
     testCharacter = 4;
-  }else if(((Pin_Q1)== HIGH) && ((Pin_Q2) == HIGH) && ((Pin_Q3) == HIGH) && ((Pin_Q4) == LOW)){
+  }else if((digitalRead(Pin_A)== HIGH) && (digitalRead(Pin_B) == HIGH) && (digitalRead(Pin_C) == HIGH) && (digitalRead(Pin_D) == LOW)){
     testCharacter = 5;
-  }else if(((Pin_Q1)== HIGH) && ((Pin_Q2) == HIGH) && ((Pin_Q3) == LOW) && ((Pin_Q4) == HIGH)){
+  }else if((digitalRead(Pin_A)== HIGH) && (digitalRead(Pin_B) == HIGH) && (digitalRead(Pin_C) == LOW) && (digitalRead(Pin_D) == HIGH)){
     testCharacter = 6;
   }else{
     testCharacter = 0;
-  }
-  return testCharacter;
+}
 }
 
 void testing(int testPQ, int testPC){
   if(testPQ == testPC){
 
-    Serial.write("TestNumber =  " + testPQ " TestChar = " + testPC);
+    Serial.write("TestNumber =  " + testPQ);
+    Serial.write(" TestChar = " + testPC);
     Serial.write("Test Successful.");
     
   }else{
-    Serial.write("TestNumber =  " + testPQ " TestChar = " + testPC);
+    Serial.write("TestNumber =  " + testPQ);
+    Serial.write(" TestChar = " + testPC);
     Serial.write("Test Failed.");
   }
 }
@@ -84,28 +85,27 @@ void testing(int testPQ, int testPC){
 void loop(){
 //TESTING -- TEST NUMBERS
   //1
-  testPQ = pulse_Q(Pin_Q1, Pin_Q2, Pin_Q3, Pin_Q4);
-  testPC = pulse_Char(Pin_A, Pin_B, Pin_C, Pin_D);
+  testPQ = pulse_Q();
+  testPC = pulse_Char();
   testing(testPQ, testPC);
     //2
-  testPQ = pulse_Q(Pin_Q1, Pin_Q2, Pin_Q3, Pin_Q4);
-  testPC = pulse_Char(Pin_A, Pin_B, Pin_C, Pin_D);
+  testPQ = pulse_Q();
+  testPC = pulse_Char();
   testing(testPQ, testPC);
     //3
-  testPQ = pulse_Q(Pin_Q1, Pin_Q2, Pin_Q3, Pin_Q4);
-  testPC = pulse_Char(Pin_A, Pin_B, Pin_C, Pin_D);
+  testPQ = pulse_Q();
+  testPC = pulse_Char();
   testing(testPQ, testPC);
     //4
-  testPQ = pulse_Q(Pin_Q1, Pin_Q2, Pin_Q3, Pin_Q4);
-  testPC = pulse_Char(Pin_A, Pin_B, Pin_C, Pin_D);
+  testPQ = pulse_Q();
+  testPC = pulse_Char();
   testing(testPQ, testPC);
     //5
-  testPQ = pulse_Q(Pin_Q1, Pin_Q2, Pin_Q3, Pin_Q4);
-  testPC = pulse_Char(Pin_A, Pin_B, Pin_C, Pin_D);
+  testPQ = pulse_Q();
+  testPC = pulse_Char();
   testing(testPQ, testPC);
     //6
-  testPQ = pulse_Q(Pin_Q1, Pin_Q2, Pin_Q3, Pin_Q4);
-  testPC = pulse_Char(Pin_A, Pin_B, Pin_C, Pin_D);
+  testPQ = pulse_Q();
+  testPC = pulse_Char();
   testing(testPQ, testPC);
 }
-
