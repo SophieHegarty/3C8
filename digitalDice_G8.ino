@@ -86,9 +86,9 @@ int pulse_Char(){
   int b = (digitalRead(Pin_B) ? 0 : 1);
   int c = (digitalRead(Pin_C) ? 0 : 1);
   int d = (digitalRead(Pin_D) ? 0 : 1);
-  testNumber = a << 3 | b << 2 | c << 1 | d;
+  testCharacter = a << 3 | b << 2 | c << 1 | d;
 
-  return testNumber;
+  return testCharacter;
 }
 
 void testing(int testPQ, int testPC){
