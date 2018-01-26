@@ -1,3 +1,4 @@
+//pin
 #define Pin_A 4
 #define Pin_B 5
 #define Pin_C 6
@@ -9,7 +10,7 @@
 #define Pin_Clock 12 
 
 //#define Pin_Button
-
+//variables defined
 int testNumber;
 int testCharacter;
 int testPQ;
@@ -20,6 +21,7 @@ void setup() {
  // put your setup code here, to run once:
  // pinMode(Pin_Button, INPUT);
  // digitalWrite(Pin_Button, LOW):
+ //set up pins and serial
   pinMode(Pin_A, INPUT);
   pinMode(Pin_B, INPUT);
   pinMode(Pin_C, INPUT);
@@ -30,7 +32,7 @@ void setup() {
   pinMode(Pin_Q4, INPUT);
   Serial.begin(9600);
 
-  //TESTING -- TEST NUMBERS
+  //TESTING -- TEST NUMBERS repeat 6 times to test all possible numbers
   //1
   testPQ = pulse_Q();
   testPC = pulse_Char();
@@ -62,7 +64,7 @@ void setup() {
   testing(testPQ, testPC);
 }
 
-int pulse_Q(){
+int pulse_Q(){ //creates test number for the Q pins, ie pins from CD4029BMS counter
     if((digitalRead(Pin_Q1== HIGH) )&& digitalRead((Pin_Q2 == LOW)) && digitalRead((Pin_Q3 == LOW)) && (digitalRead(Pin_Q4 == LOW))){
     testNumber = 1;
   }else if((digitalRead(Pin_Q1== LOW)) && digitalRead((Pin_Q2 == HIGH)) && digitalRead((Pin_Q3 == LOW)) && digitalRead((Pin_Q4 == LOW))){
@@ -81,17 +83,17 @@ int pulse_Q(){
   return testNumber;
 }
 
-int pulse_Char(){
-  int a = (digitalRead(Pin_A) ? 0 : 1);
+int pulse_Char(){//creates a test number for the 'char' pins ie pins from leds
+  int a = (digitalRead(Pin_A) ? 0 : 1); //read pin A, if high now = 0, else 1
   int b = (digitalRead(Pin_B) ? 0 : 1);
   int c = (digitalRead(Pin_C) ? 0 : 1);
   int d = (digitalRead(Pin_D) ? 0 : 1);
-  testCharacter = a << 3 | b << 2 | c << 1 | d;
+  testCharacter = a << 3 | b << 2 | c << 1 | d; //<< means LSR, shift all bits to correct position, testChar = number from bits
 
   return testCharacter;
 }
 
-void testing(int testPQ, int testPC){
+void testing(int testPQ, int testPC){ //compares the two test numbers, if equal test is sucessful 
   if(testPQ == testPC){
     Serial.write("TestNumber =  " + testPQ);
     Serial.write(" TestChar = " + testPC);
@@ -103,7 +105,7 @@ void testing(int testPQ, int testPC){
   }
 }
 
-void test_clock(){
+void test_clock(){ //function to pulse clock pin
   digitalWrite(Pin_Clock, HIGH);
   delay(100);
   digitalWrite(Pin_Clock, LOW);
