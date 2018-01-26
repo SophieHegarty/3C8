@@ -1,7 +1,7 @@
 #define Pin_Clock 12
 void setup() {
   // put your setup code here, to run once:
-  pinMode(Pin_Clock, INPUT);
+  pinMode(Pin_Clock, OUTPUT);
 }
 
 void loop() {
