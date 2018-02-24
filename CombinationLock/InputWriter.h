@@ -4,7 +4,10 @@
 
 class InputWriter {
 public:
-    InputWriter(byte a3, byte a2, byte a1, byte a0, byte valid_pin, byte clear_pin, byte enter_pin);
+    InputWriter(byte a3, byte a2, byte a1, byte a0,
+            byte valid_pin,
+            byte clear_pin,
+            byte enter_pin);
     virtual ~InputWriter() = default;
 
     enum {
@@ -14,7 +17,10 @@ public:
     };
 
     void writeNumber(byte number) const;
+
+    // Pulse some of VALID_KEY, CLEAR_KEY and ENTER_KEY
     void pulseSignal(byte signal_mask) const;
+
     void pulseValid() const;
     void pulseClear() const;
     void pulseEnter() const;

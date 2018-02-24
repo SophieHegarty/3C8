@@ -1,6 +1,10 @@
 #include "Keypad.h"
 
-Keypad::Keypad(byte a2, byte a1, byte a0, byte data_pin, byte write_disable_0, byte write_disable_1, byte reset_pin)
+Keypad::Keypad(byte a2, byte a1, byte a0,
+               byte data_pin,
+               byte write_disable_0,
+               byte write_disable_1,
+               byte reset_pin)
         : latches{ Latch8(a2, a1, a0, data_pin, write_disable_0, reset_pin),
                    Latch8(a2, a1, a0, data_pin, write_disable_1, reset_pin) } {}
 

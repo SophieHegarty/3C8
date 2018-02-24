@@ -4,7 +4,10 @@
 
 class InputReader {
 public:
-    InputReader(byte a3, byte a2, byte a1, byte a0, byte valid_pin, byte clear_pin, byte enter_pin);
+    InputReader(byte a3, byte a2, byte a1, byte a0,
+            byte valid_pin,
+            byte clear_pin,
+            byte enter_pin);
     virtual ~InputReader() = default;
 
     byte readNumber() const;

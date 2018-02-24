@@ -2,9 +2,14 @@
 
 #include "stl.h"
 
-InputReader::InputReader(byte a3, byte a2, byte a1, byte a0, byte valid_pin, byte clear_pin, byte enter_pin)
-        : address_pins{a0, a1, a2, a3}, valid_pin(valid_pin), clear_pin(clear_pin), enter_pin(enter_pin) {
-
+InputReader::InputReader(byte a3, byte a2, byte a1, byte a0,
+                         byte valid_pin,
+                         byte clear_pin,
+                         byte enter_pin)
+        : address_pins{a0, a1, a2, a3},
+          valid_pin(valid_pin),
+          clear_pin(clear_pin),
+          enter_pin(enter_pin) {
     for (byte pin : {a3, a2, a1, a0, valid_pin, clear_pin, enter_pin}) {
         pinMode(pin, INPUT);
     }

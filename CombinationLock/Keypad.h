@@ -4,7 +4,11 @@
 
 class Keypad {
 public:
-    Keypad(byte a2, byte a1, byte a0, byte data_pin, byte reset_pin, byte write_disable_0, byte write_disable_1);
+    Keypad(byte a2, byte a1, byte a0,
+           byte data_pin,
+           byte reset_pin,
+           byte write_disable_0,
+           byte write_disable_1);
     virtual ~Keypad() = default;
 
     // TODO: use actual keypad pinout

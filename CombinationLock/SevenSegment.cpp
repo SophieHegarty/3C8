@@ -1,8 +1,11 @@
 #include "SevenSegment.h"
 
-SevenSegmentDisplay::SevenSegmentDisplay(byte C, byte B, byte A, byte inhibit, byte read_pin)
-        : pins{A, B, C}, inhibit_pin(inhibit), read_pin(read_pin) {
-
+SevenSegmentDisplay::SevenSegmentDisplay(byte C, byte B, byte A,
+                                         byte inhibit,
+                                         byte read_pin)
+        : pins{A, B, C},
+          inhibit_pin(inhibit),
+          read_pin(read_pin) {
     for (byte i = 0; i < 3; i++) {
         pinMode(pins[i], OUTPUT);
         digitalWrite(pins[i], LOW);
