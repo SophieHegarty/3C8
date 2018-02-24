@@ -21,7 +21,7 @@ Latch8::Latch8 (byte a2, byte a1, byte a0,
 
 void Latch8::writePin(byte pin, byte value) const {
     for (byte digit = 0; digit < 3; digit++) {
-        digitalWrite(address_pins[digit], (pin & (1 << digit)) ? HIGH : LOW);
+        digitalWrite(address_pins[digit], bitRead(pin, digit) ? HIGH : LOW);
     }
     digitalWrite(data_pin, value);
     delayMicroseconds(10);

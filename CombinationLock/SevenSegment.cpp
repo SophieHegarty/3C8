@@ -21,7 +21,7 @@ byte SevenSegmentDisplay::readSegments() const {
     // TODO: use display pinout
     for (byte segment = 0; segment < 8; segment++) {
         if (isSegmentOn(segment)) {
-            result |= 1 << segment;
+            bitSet(result, segment);
         }
     }
 
@@ -30,7 +30,7 @@ byte SevenSegmentDisplay::readSegments() const {
 
 bool SevenSegmentDisplay::isSegmentOn(byte segment) const {
     for (byte digit = 0; digit < 3; digit++) {
-        digitalWrite(pins[digit], (segment & (1 << digit)) ? HIGH : LOW);
+        digitalWrite(pins[digit], bitRead(segment, digit) ? HIGH : LOW);
     }
     digitalWrite(inhibit_pin, LOW);
     delayMicroseconds(10);

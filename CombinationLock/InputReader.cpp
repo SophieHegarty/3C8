@@ -18,7 +18,7 @@ InputReader::InputReader(byte a3, byte a2, byte a1, byte a0,
 byte InputReader::readNumber() const {
     byte result = 0;
     for (byte i = 0; i < 4; i++) {
-        result |= digitalRead(address_pins[i]) ? 1 << i : 0;
+        bitWrite(result, i, digitalRead(address_pins[i]));
     }
     return result;
 }

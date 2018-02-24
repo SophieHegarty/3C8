@@ -18,7 +18,7 @@ InputWriter::InputWriter(byte a3, byte a2, byte a1, byte a0,
 
 void InputWriter::writeNumber(byte number) const{
     for (byte i = 0; i < 4; i++) {
-        digitalWrite(address_pins[i], (number & (1 << i)) ? HIGH : LOW);
+        digitalWrite(address_pins[i], bitRead(number, i) ? HIGH : LOW);
     }
 }
 
