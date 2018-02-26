@@ -2,23 +2,25 @@
 
 #include "stl.h"
 
-class Test;
 class Scenario {
 public:
-    Scenario(const std::string &name);
-    virtual ~Scenario() = default;
+    Scenario(const char *name);
+    virtual ~Scenario();
 
-    void addTest(bool (*f)(), std::string name = "", unsigned long timeout = DEFAULT_TIMEOUT);
-#define ADD_CONDITION(f) addTest([&](){ return (f); }, #f)
-#define ADD_CONDITION_N(f, n) addTest([&](){ return (f); }, (n))
-#define ADD_CONDITION_T(f, t) addTest([&](){ return (f); }, #f, (t))
-#define ADD_CONDITION_NT(f, n, t) addTest([&](){ return (f); }, (n), (t))
+    bool check(bool (*f)(), const char *name = "", unsigned long timeout = DEFAULT_TIMEOUT);
+#define CHECK_CONDITION(f) check([&](){ return (f); }, #f)
+#define CHECK_CONDITION_N(f, n) check([&](){ return (f); }, (n))
+#define CHECK_CONDITION_T(f, t) check([&](){ return (f); }, #f, (t))
+#define CHECK_CONDITION_NT(f, n, t) check([&](){ return (f); }, (n), (t))
 
-    bool run() const;
+    bool isSuccessfull() const;
 
 private:
+
     static const unsigned long DEFAULT_TIMEOUT = 1000;
 
-    std::vector<Test> tests;
-    const std::string &name;
+    const char *name;
+
+    size_t check_count = 0;
+    size_t successful_checks = 0;
 };

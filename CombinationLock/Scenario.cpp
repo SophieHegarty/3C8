@@ -2,40 +2,21 @@
 
 #include <Arduino.h>
 
-class Test {
-public:
-    Test(bool (*f)(), const std::string &name, unsigned long timeout)
-            : f(f), name(name), timeout(timeout) {}
-    virtual ~Test() = default;
-
-    bool execute() const;
-
-private:
-    bool (* const f)();
-    const std::string &name;
-    const unsigned long timeout;
-};
-
-bool Scenario::run() const {
+Scenario::Scenario(const char *name) : name(name) {
     std::cout << "Beginning scenario " << name << std::endl;
+}
 
-    bool success = true;
-    for (size_t i = 0; i < tests.size(); i++) {
-        const Test &test = tests[i];
-        std::cout << "Test " << i << ": ";
-        success = success && test.execute();
-    }
-
-    std::cout << "Scenario finished " << (success ? "successfully" : "unsuccessfully")
+Scenario::~Scenario() {
+    std::cout << "Scenario " << name << " finished "
+              << (isSuccessfull() ? "successfully" : "unsuccessfully")
               << std::endl << std::endl;
-    return success;
 }
 
-void Scenario::addTest(bool (*f)(), std::string name, unsigned long timeout) {
-    tests.push_back(Test(f, name, timeout));
+bool Scenario::isSuccessfull() const {
+    return successful_checks == check_count;
 }
 
-bool Test::execute() const {
+bool Scenario::check(bool (*f)(), const char *name, unsigned long timeout) {
     bool result = false;
     const unsigned long beginTime = micros();
     const unsigned long endTime = beginTime + timeout;
@@ -47,7 +28,7 @@ bool Test::execute() const {
     if (result) {
         std::cout << "Success" << std::endl;
     } else {
-        if (name != "") {
+        if (name != NULL && strcmp(name, "") != 0) {
             std::cout << name << " ";
         }
         std::cout << "failed after " << timeout << " us" << std::endl;
