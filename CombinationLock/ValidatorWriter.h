@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 
+/**
+ * Class to simulate the outputs of the "Comparator section" towards the "Output section"
+ */
 class ValidatorWriter {
 public:
     ValidatorWriter(byte p2, byte p1, byte p0, byte correct_pin);

@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 
+/**
+ * Class to read the values displayed on a 7-segment display
+ */
 class SevenSegmentDisplay {
 public:
     SevenSegmentDisplay(byte C, byte B, byte A, byte inhibit, byte read_pin);

@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 
+/**
+ * Class to read the outputs of the "Input stage"
+ */
 class InputReader {
 public:
     InputReader(byte a3, byte a2, byte a1, byte a0,

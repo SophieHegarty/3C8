@@ -3,6 +3,9 @@
 
 #include "Arduino.h"
 
+/**
+ * Class aiding the use of the 4099 chip
+ */
 class Latch8 {
 public:
     Latch8 (byte a2, byte a1, byte a0,

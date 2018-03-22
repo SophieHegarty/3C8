@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 
+/**
+ * Class to select which scenario (associated set of tests) to run
+ */
 class ScenarioSelector {
 public:
     ScenarioSelector(byte pin0, byte pin1, byte pin2, byte enable_pin);

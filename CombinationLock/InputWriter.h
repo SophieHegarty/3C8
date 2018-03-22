@@ -3,6 +3,9 @@
 
 #include <Arduino.h>
 
+/**
+ * Class to simulate the outputs of the "Input stage" to the "Comparator stage"
+ */
 class InputWriter {
 public:
     InputWriter(byte a3, byte a2, byte a1, byte a0,
