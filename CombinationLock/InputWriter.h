@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INPUTWRITER_H_QXLBVQKL
+#define INPUTWRITER_H_QXLBVQKL
 
 #include <Arduino.h>
 
@@ -33,3 +34,5 @@ private:
     byte clear_pin;
     byte enter_pin;
 };
+
+#endif /* end of include guard: INPUTWRITER_H_QXLBVQKL */

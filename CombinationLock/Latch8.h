@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LATCH8_H_P9NJ2JDM
+#define LATCH8_H_P9NJ2JDM
 
 #include "Arduino.h"
 
@@ -19,3 +20,5 @@ private:
     byte write_disable;
     byte reset_pin;
 };
+
+#endif /* end of include guard: LATCH8_H_P9NJ2JDM */

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VALIDATORREADER_H_16W2BKYB
+#define VALIDATORREADER_H_16W2BKYB
 
 #include <Arduino.h>
 
@@ -14,3 +15,5 @@ private:
     byte position_pins[3];
     byte correct_pin;
 };
+
+#endif /* end of include guard: VALIDATORREADER_H_16W2BKYB */

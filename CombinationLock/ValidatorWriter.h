@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VALIDATORWRITER_H_XOJNYPCC
+#define VALIDATORWRITER_H_XOJNYPCC
 
 #include <Arduino.h>
 
@@ -14,3 +15,5 @@ private:
     byte position_pins[3];
     byte correct_pin;
 };
+
+#endif /* end of include guard: VALIDATORWRITER_H_XOJNYPCC */

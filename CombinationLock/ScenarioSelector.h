@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCENARIOSELECTOR_H_2VPHWELH
+#define SCENARIOSELECTOR_H_2VPHWELH
 
 #include <Arduino.h>
 
@@ -22,3 +23,5 @@ private:
 
     scenario_handler handlers[8] = {};
 };
+
+#endif /* end of include guard: SCENARIOSELECTOR_H_2VPHWELH */

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KEYPAD_H_ZWSJK4QU
+#define KEYPAD_H_ZWSJK4QU
 
 #include "Latch8.h"
 
@@ -26,3 +27,5 @@ private:
 
     static constexpr byte KEYMAP[13] = { 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11 };
 };
+
+#endif /* end of include guard: KEYPAD_H_ZWSJK4QU */

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SEVENSEGMENT_H_CW0DRSSO
+#define SEVENSEGMENT_H_CW0DRSSO
 
 #include <Arduino.h>
 
@@ -18,3 +19,5 @@ private:
     byte inhibit_pin;
     byte read_pin;
 };
+
+#endif /* end of include guard: SEVENSEGMENT_H_CW0DRSSO */

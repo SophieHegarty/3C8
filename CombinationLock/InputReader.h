@@ -1,4 +1,5 @@
-#pragma once
+#ifndef INPUTREADER_H_WASKF8T5
+#define INPUTREADER_H_WASKF8T5
 
 #include <Arduino.h>
 
@@ -21,3 +22,5 @@ private:
     byte clear_pin;
     byte enter_pin;
 };
+
+#endif /* end of include guard: INPUTREADER_H_WASKF8T5 */

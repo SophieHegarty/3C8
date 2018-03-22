@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCENARIO_H_Y3YWEDH5
+#define SCENARIO_H_Y3YWEDH5
 
 #include "stl.h"
 
@@ -24,3 +25,5 @@ private:
     size_t check_count = 0;
     size_t successful_checks = 0;
 };
+
+#endif /* end of include guard: SCENARIO_H_Y3YWEDH5 */
