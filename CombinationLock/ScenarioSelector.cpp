@@ -21,6 +21,8 @@ void ScenarioSelector::run() {
             enabled = true;
             previous_enable_on = current_time;
 
+            delay(debounce_delay); // Let things to stabilise
+
             byte enabled_scenario = 0;
             for (byte i = 0; i < 2; i++) {
                 enabled_scenario |= (digitalRead(pins[i]) & 1) << i;
