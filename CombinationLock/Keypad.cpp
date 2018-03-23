@@ -1,5 +1,7 @@
 #include "Keypad.h"
 
+const byte Keypad::KEYMAP[13] = { 5, 4, 8, 12, 3, 7, 11, 2, 6, 10, 1, 9 };
+
 Keypad::Keypad(byte a2, byte a1, byte a0,
                byte data_pin,
                byte write_disable_0,
@@ -35,5 +37,6 @@ void Keypad::removeKey(byte key) const {
 
 void Keypad::reset() const {
     latches[0].reset();
-    // latches[1].reset(); // redundant, as the two latches use the same reset pin
+    // Redundant, as the two latches use the same reset pin. Kept for uniformity
+    // latches[1].reset();
 }

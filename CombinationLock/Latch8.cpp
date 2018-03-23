@@ -10,13 +10,23 @@ Latch8::Latch8 (byte a2, byte a1, byte a0,
           data_pin(data_pin),
           write_disable(write_disable),
           reset_pin(reset_pin) {
-    for (byte pin : {a2, a1, a0, data_pin, reset_pin}) {
+    for (byte pin : {a2, a1, a0, data_pin}) {
         pinMode(pin, OUTPUT);
         digitalWrite(pin, LOW);
     }
 
+    if (reset_pin != BYTE_MAX) {
+        pinMode(reset_pin, OUTPUT);
+        digitalWrite(reset_pin, LOW);
+    }
+
     pinMode(write_disable, OUTPUT);
     digitalWrite(write_disable, HIGH);
+
+    // Set all latch outputs to 0
+    for (byte i = 0; i < 8; i++) {
+        writePin(i, LOW);
+    }
 }
 
 void Latch8::writePin(byte pin, byte value) const {
@@ -31,7 +41,9 @@ void Latch8::writePin(byte pin, byte value) const {
 }
 
 void Latch8::reset() const {
-    digitalWrite(reset_pin, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(reset_pin, LOW);
+    if (reset_pin != BYTE_MAX) {
+        digitalWrite(reset_pin, HIGH);
+        delayMicroseconds(10);
+        digitalWrite(reset_pin, LOW);
+    }
 }
