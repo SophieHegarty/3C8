@@ -8,7 +8,7 @@
  */
 class ScenarioSelector {
 public:
-    ScenarioSelector(byte pin0, byte pin1, byte pin2, byte enable_pin);
+    ScenarioSelector(byte pin0, byte pin1, byte pin2, byte disable_pin);
 
     void run();
 
@@ -17,7 +17,7 @@ public:
 
 private:
     byte pins[3];
-    byte enable_pin;
+    byte disable_pin;
 
     bool enabled = false;
     unsigned long previous_enable_on = 0;

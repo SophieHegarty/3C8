@@ -17,10 +17,106 @@ namespace scenarios {
         Scenario s("InputSection");
         Keypad keypad(2, 3, 4, 5, 6, 7, BYTE_MAX); // No reset
         InputReader reader(19, 18, 17, 16, 15, 14, 13);
+        const static byte input_disable = 8;
+        pinMode(input_disable, OUTPUT);
+        digitalWrite(input_disable, LOW);
+        char buffer[100];
 
-        for (byte i = 0; i < 12; i++) {
+        s.sectionHeader("Individual kepresses");
+        for (byte i = 0; i < 10; i++) {
             keypad.addKey(i);
-            CHECK_CONDITION(s, reader.readNumber() == i);
+            sprintf(buffer, "Key %d", i);
+            CHECK_CONDITION_N(s, reader.readNumber() == i, buffer);
+            CHECK_CONDITION(s, reader.isNumberValid());
+            keypad.removeKey(i);
+        }
+        keypad.addKey(10);
+        CHECK_CONDITION(s, reader.isEnterEnabled());
+        keypad.removeKey(10);
+        keypad.addKey(11);
+        CHECK_CONDITION(s, reader.isClearEnabled());
+        keypad.removeKey(11);
+        s.interimReport();
+
+        keypad.clear();
+        s.sectionHeader("Double and triple digit presses");
+        for (byte i = 0; i < 10; i++) {
+            byte j = -1, k = -1;
+            do { j = random(12); } while (i == j);
+            do { k = random(12); } while (i == k || j == k);
+
+            keypad.addKey(i);
+            keypad.addKey(j);
+            ENSURE_CONDITION(s, !reader.isNumberValid());
+            keypad.addKey(k);
+            ENSURE_CONDITION(s, !reader.isNumberValid());
+            keypad.removeKey(k);
+            keypad.removeKey(j);
+            keypad.removeKey(i);
+        }
+        s.interimReport();
+
+        keypad.clear();
+        s.sectionHeader("Disable input");
+        digitalWrite(input_disable, HIGH);
+        for (byte i = 0; i < 10; i++) {
+            keypad.addKey(i);
+            ENSURE_CONDITION(s, !reader.isNumberValid());
+            keypad.removeKey(i);
+        }
+        keypad.addKey(Keypad::ENTER_KEY);
+        ENSURE_CONDITION(s, !reader.isEnterEnabled());
+        keypad.removeKey(Keypad::ENTER_KEY);
+        keypad.addKey(Keypad::CLEAR_KEY);
+        ENSURE_CONDITION(s, !reader.isClearEnabled());
+        keypad.removeKey(Keypad::CLEAR_KEY);
+        digitalWrite(input_disable, LOW);
+        s.interimReport();
+
+        keypad.clear();
+        s.sectionHeader("Enter, clear and digits should be mutually exclusive");
+        keypad.addKey(Keypad::ENTER_KEY);
+        for (byte i = 0; i < 10; i++) {
+            keypad.addKey(i);
+            ENSURE_CONDITION(s, !reader.isNumberValid());
+            keypad.addKey(Keypad::CLEAR_KEY);
+            ENSURE_CONDITION(s, !reader.isNumberValid());
+            ENSURE_CONDITION(s, !reader.isClearEnabled());
+            keypad.removeKey(Keypad::CLEAR_KEY);
+            keypad.removeKey(i);
+        }
+        keypad.addKey(Keypad::CLEAR_KEY);
+        ENSURE_CONDITION(s, !reader.isClearEnabled());
+        keypad.removeKey(Keypad::CLEAR_KEY);
+        keypad.removeKey(Keypad::ENTER_KEY);
+
+        keypad.addKey(Keypad::CLEAR_KEY);
+        for (byte i = 0; i < 10; i++) {
+            keypad.addKey(i);
+            ENSURE_CONDITION(s, !reader.isNumberValid());
+            keypad.addKey(Keypad::ENTER_KEY);
+            ENSURE_CONDITION(s, !reader.isNumberValid());
+            ENSURE_CONDITION(s, !reader.isEnterEnabled());
+            keypad.removeKey(Keypad::ENTER_KEY);
+            keypad.removeKey(i);
+        }
+        keypad.addKey(Keypad::ENTER_KEY);
+        ENSURE_CONDITION(s, !reader.isClearEnabled());
+        keypad.removeKey(Keypad::ENTER_KEY);
+        keypad.removeKey(Keypad::CLEAR_KEY);
+
+        for (byte i = 0; i < 10; i++) {
+            keypad.addKey(i);
+            keypad.addKey(Keypad::ENTER_KEY);
+            ENSURE_CONDITION(s, !reader.isEnterEnabled());
+            keypad.removeKey(Keypad::ENTER_KEY);
+            keypad.addKey(Keypad::CLEAR_KEY);
+            ENSURE_CONDITION(s, !reader.isClearEnabled());
+            keypad.addKey(Keypad::ENTER_KEY);
+            ENSURE_CONDITION(s, !reader.isEnterEnabled());
+            ENSURE_CONDITION(s, !reader.isClearEnabled());
+            keypad.removeKey(Keypad::ENTER_KEY);
+            keypad.removeKey(Keypad::CLEAR_KEY);
             keypad.removeKey(i);
         }
     }

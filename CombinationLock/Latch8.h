@@ -16,6 +16,7 @@ public:
 
     void writePin(byte pin, byte value) const;
     void reset() const;
+    void clear() const;
 
 private:
     byte address_pins[3];

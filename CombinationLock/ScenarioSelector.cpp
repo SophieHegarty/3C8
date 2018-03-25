@@ -2,11 +2,11 @@
 
 #include "stl.h"
 
-ScenarioSelector::ScenarioSelector(byte pin0, byte pin1, byte pin2, byte enable_pin)
+ScenarioSelector::ScenarioSelector(byte pin0, byte pin1, byte pin2, byte disable_pin)
         : pins{pin0, pin1, pin2},
-          enable_pin(enable_pin) {
-    for (byte pin : {pin0, pin1, pin2, enable_pin}) {
-        pinMode(pin, INPUT);
+          disable_pin(disable_pin) {
+    for (byte pin : {pin0, pin1, pin2, disable_pin}) {
+        pinMode(pin, INPUT_PULLUP);
     }
 }
 
@@ -16,16 +16,14 @@ void ScenarioSelector::setScenarioHandler(byte scenario, scenario_handler handle
 
 void ScenarioSelector::run() {
     unsigned long current_time = millis();
-    if (digitalRead(enable_pin)) {
+    if (!digitalRead(disable_pin)) { // Should enable
         if (!enabled && previous_enable_off + debounce_delay < current_time) {
             enabled = true;
             previous_enable_on = current_time;
 
-            delay(debounce_delay); // Let things to stabilise
-
             byte enabled_scenario = 0;
-            for (byte i = 0; i < 2; i++) {
-                enabled_scenario |= (digitalRead(pins[i]) & 1) << i;
+            for (byte i = 0; i < 3; i++) {
+                enabled_scenario |= (digitalRead(pins[i]) ? 1 : 0) << i;
             }
 
             if (handlers[enabled_scenario] != NULL) {
