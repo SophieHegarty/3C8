@@ -20,8 +20,8 @@ public:
            byte reset_pin);
     virtual ~Keypad() = default;
 
-    static const byte ENTER_KEY = 1;
-    static const byte CLEAR_KEY = 9;
+    static const byte ENTER_KEY = 11;
+    static const byte CLEAR_KEY = 10;
 
     void setKey(byte key) const; // reset and set only the key
     void writeKey(byte key, byte value) const; // do not reset

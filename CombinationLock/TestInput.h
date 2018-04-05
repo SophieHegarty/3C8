@@ -23,19 +23,26 @@ namespace scenarios {
         char buffer[100];
 
         s.sectionHeader("Individual kepresses");
+        keypad.clear();
         for (byte i = 0; i < 10; i++) {
             keypad.addKey(i);
+            delay(1);
             sprintf(buffer, "Key %d", i);
-            CHECK_CONDITION_N(s, reader.readNumber() == i, buffer);
+            if (!CHECK_CONDITION_N(s, reader.readNumber() == i, buffer)) {
+                Serial.print("The actual output was ");
+                Serial.println(reader.readNumber());
+            }
             CHECK_CONDITION(s, reader.isNumberValid());
             keypad.removeKey(i);
         }
-        keypad.addKey(10);
-        CHECK_CONDITION(s, reader.isEnterEnabled());
-        keypad.removeKey(10);
-        keypad.addKey(11);
+        keypad.addKey(Keypad::CLEAR_KEY);
         CHECK_CONDITION(s, reader.isClearEnabled());
-        keypad.removeKey(11);
+        CHECK_CONDITION(s, !reader.isEnterEnabled());
+        keypad.removeKey(Keypad::CLEAR_KEY);
+        keypad.addKey(Keypad::ENTER_KEY);
+        CHECK_CONDITION(s, !reader.isClearEnabled());
+        CHECK_CONDITION(s, reader.isEnterEnabled());
+        keypad.removeKey(Keypad::ENTER_KEY);
         s.interimReport();
 
         keypad.clear();
@@ -47,9 +54,9 @@ namespace scenarios {
 
             keypad.addKey(i);
             keypad.addKey(j);
-            ENSURE_CONDITION(s, !reader.isNumberValid());
+            ENSURE_CONDITION(s, reader.readNumber() == i || !reader.isNumberValid());
             keypad.addKey(k);
-            ENSURE_CONDITION(s, !reader.isNumberValid());
+            ENSURE_CONDITION(s, reader.readNumber() == i || !reader.isNumberValid());
             keypad.removeKey(k);
             keypad.removeKey(j);
             keypad.removeKey(i);
@@ -101,7 +108,7 @@ namespace scenarios {
             keypad.removeKey(i);
         }
         keypad.addKey(Keypad::ENTER_KEY);
-        ENSURE_CONDITION(s, !reader.isClearEnabled());
+        ENSURE_CONDITION(s, !reader.isEnterEnabled());
         keypad.removeKey(Keypad::ENTER_KEY);
         keypad.removeKey(Keypad::CLEAR_KEY);
 
@@ -119,6 +126,7 @@ namespace scenarios {
             keypad.removeKey(Keypad::CLEAR_KEY);
             keypad.removeKey(i);
         }
+        s.interimReport();
     }
 }
 

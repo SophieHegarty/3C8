@@ -22,7 +22,7 @@ public:
     size_t check_count = 0;
     size_t successful_checks = 0;
 
-    static const unsigned long DEFAULT_TIMEOUT = 1000;
+    static const unsigned long DEFAULT_TIMEOUT = 5000;
 
     const char *name;
 };
@@ -82,7 +82,7 @@ public:
             __CHECK_SKELETON_NT(scenario, ({                       \
                     _result = true;                                \
                     while (_result && micros() < _endTime) {       \
-                        _result = _result && condition;            \
+                        _result = _result && (condition);          \
                     }                                              \
                 }), name, timeout);                                \
             })

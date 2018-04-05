@@ -1,6 +1,20 @@
 #include "Keypad.h"
 
-const byte Keypad::KEYMAP[12] = { 5, 4, 8, 12, 3, 7, 11, 2, 6, 10, 1, 9 };
+                               /* Pinout to keys
+                                * 1  2  3  4  5  6  7  8  9 10 11 12 13
+                                * G  *  7  4  1  0  8  5  2  #  9  6  3
+                                * x  0  1  2  3  4  5  6  7  8  9 10 11
+                                *
+                                * Keys to rows
+                                * 0  1  2  3  4  5  6  7  8  9  *  #
+                                * 4  3  7 11  2  6 10  1  5  9  0  8
+                                * 
+                                * Rows to latch pins
+                                * 0  1  2  3  4  5  6  7  8  9 10 11
+                                * 6  5  4  3  2  1  0  7 14 13 12 11
+                                * 2  3  7 11  4  0 12  5  1 13  6 14
+                                */
+const byte Keypad::KEYMAP[12] = { 2, 3, 7, 11, 4, 0, 12, 5, 1, 13, 6, 14 };
 
 Keypad::Keypad(byte a2, byte a1, byte a0,
                byte data_pin,
