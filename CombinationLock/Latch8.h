@@ -12,7 +12,6 @@ public:
             byte data_pin,
             byte write_disable,
             byte reset_pin);
-    virtual ~Latch8 () = default;
 
     void writePin(byte pin, byte value) const;
     void reset() const;

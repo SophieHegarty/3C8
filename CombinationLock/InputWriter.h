@@ -11,7 +11,6 @@ public:
     InputWriter(byte a3, byte a2, byte a1, byte a0,
             byte valid_pin,
             byte clear_pin);
-    virtual ~InputWriter() = default;
 
     enum {
         VALID_KEY = 1,

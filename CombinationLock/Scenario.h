@@ -9,7 +9,7 @@
 class Scenario {
 public:
     Scenario(const char *name);
-    virtual ~Scenario();
+    ~Scenario();
 
     /**
      * Have all the assertions in the scenario been successful sofar?

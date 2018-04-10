@@ -18,7 +18,6 @@ public:
            byte write_disable_0,
            byte write_disable_1,
            byte reset_pin);
-    virtual ~Keypad() = default;
 
     static const byte ENTER_KEY = 11;
     static const byte CLEAR_KEY = 10;
