@@ -104,6 +104,18 @@ namespace scenarios {
             checkNumber(s, input, reader, value, correct_code, QUICK);
         }
 
+        s.sectionHeader("Only accept 4 digits");
+        input.pulseClear();
+        for (byte i = 0; i < 4; i++) {
+            input.writeNumber(1);
+            input.pulseValid();
+        }
+        CHECK_CONDITION(s, reader.readPosition() == 4);
+        input.writeNumber(1);
+        input.pulseValid();
+        CHECK_CONDITION(s, reader.readPosition() == 4);
+        s.interimReport();
+
         s.sectionHeader("Check clear");
         input.pulseClear();
         for (byte i = 0; i <= 4; i++) { // Reset after i digits

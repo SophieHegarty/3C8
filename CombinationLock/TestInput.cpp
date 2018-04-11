@@ -15,7 +15,7 @@ namespace scenarios {
     void testInputSection() {
         Scenario s("InputSection");
         Keypad keypad(2, 3, 4, 5, 6, 7, BYTE_MAX); // No reset
-        InputReader reader(19, 18, 17, 16, 15, 14, 13); // TODO update the pins
+        InputReader reader(16, 15, 14, 13, 19, 18, 17);
         const static byte input_disable = 8;
         pinMode(input_disable, OUTPUT);
         digitalWrite(input_disable, LOW);

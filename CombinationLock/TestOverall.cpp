@@ -10,12 +10,12 @@
 
 void pulseKey(Keypad &keypad, byte key) {
     keypad.addKey(key);
-    delay(10);
+    delay(100);
     keypad.removeKey(key);
-    delay(10);
+    delay(100);
 }
 
-void inputNumber(Keypad &keypad, unsigned short n, byte digit_count = 4) {
+void inputNumber(Keypad &keypad, unsigned short n) {
     byte digits[4];
 
     // Extract digits from number, going backwards
@@ -25,7 +25,7 @@ void inputNumber(Keypad &keypad, unsigned short n, byte digit_count = 4) {
         n /= 10;
     }
 
-    for (byte i = 0; i < digit_count; i++) {
+    for (byte i = 0; i < 4; i++) {
         pulseKey(keypad, digits[i]);
     }
 }
@@ -37,7 +37,7 @@ namespace scenarios {
     void testOverall() {
         Scenario s("Overall");
         Keypad keypad(2, 3, 4, 5, 6, 7, BYTE_MAX); // No reset
-        OutputReader output(1, 1, 1, 1, 1, 1, 1, 1); // TODO use actual pins
+        OutputReader output(13, 14, 15, 16, 17, 18, 19, 8);
         char buffer[48];
 
         static const unsigned short correct_code = 9386;
@@ -45,17 +45,27 @@ namespace scenarios {
         Serial.println(correct_code);
 
         s.sectionHeader("3 incorrect inputs");
-        inputNumber(keypad, 1111);
-        pulseKey(keypad, Keypad::ENTER_KEY);
-        ENSURE_CONDITION_T(s, !output.readStandby(), 1000);
-        ENSURE_CONDITION_T(s, !output.readSuccess(), 1000);
-        for (byte i = 0; i < 15; i++) { // Expect at least 15 seconds
+        keypad.clear();
+        for (byte i = 0; i < 3; i++) {
+            // Wait for the system to be ready
+            CHECK_CONDITION_T(s, output.readStandby(), 5000);
+            inputNumber(keypad, 1111);
+            pulseKey(keypad, Keypad::ENTER_KEY);
+        }
+        CHECK_CONDITION_T(s, !output.readStandby(), 1000);
+        CHECK_CONDITION_T(s, !output.readSuccess(), 1000);
+        for (byte i = 0; i < 10; i++) { // Expect at least 10 seconds
             CHECK_CONDITION_T(s, output.readFailure(), 1000);
             ENSURE_CONDITION_T(s, output.readInputDisable(), 1000);
         }
         // Wait for the end of the lockout period
-        CHECK_CONDITION_T(s, output.readInputDisable(), 20000);
+        Serial.println("Waiting for the end of the lockout period...");
+        CHECK_CONDITION_T(s, !output.readInputDisable(), 20000);
+        // The error signal might take a little more to turn off
+        delay(1000);
+        s.interimReport();
 
+        keypad.clear();
         for (byte i = 0; i < 3; i++) {
             sprintf(buffer, "%d incorrect inputs, then a correct one", i);
             s.sectionHeader(buffer);
@@ -65,22 +75,25 @@ namespace scenarios {
                 pulseKey(keypad, Keypad::ENTER_KEY);
                 CHECK_CONDITION(s, !output.readStandby());
                 CHECK_CONDITION(s, !output.readSuccess());
-                CHECK_CONDITION_T(s, output.readFailure(), 1000);
                 CHECK_CONDITION(s, output.readInputDisable());
+                CHECK_CONDITION_T(s, output.readFailure(), 1000);
 
-                // Wait for the end of the indicator period
+                Serial.println("Waiting for the incorrect signal to expire...");
                 CHECK_CONDITION_T(s, !output.readInputDisable(), 10000);
             }
+            // The error signal might take a little more to turn off
+            delay(1000);
             // Correct inputs
             inputNumber(keypad, correct_code);
             pulseKey(keypad, Keypad::ENTER_KEY);
             CHECK_CONDITION(s, !output.readStandby());
-            CHECK_CONDITION_T(s, output.readSuccess(), 1000);
-            CHECK_CONDITION(s, !output.readFailure());
+            CHECK_CONDITION(s, output.readSuccess());
             CHECK_CONDITION(s, output.readInputDisable());
+            ENSURE_CONDITION_T(s, !output.readFailure(), 500);
 
-            // Wait for the end of the indicator period
+            Serial.println("Waiting for the correct signal to expire...");
             CHECK_CONDITION_T(s, !output.readInputDisable(), 10000);
+            s.interimReport();
         }
     }
 }

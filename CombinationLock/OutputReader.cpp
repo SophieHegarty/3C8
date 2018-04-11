@@ -6,17 +6,17 @@ OutputReader::OutputReader(byte hyphen0,
                            byte hyphen1,
                            byte hyphen2,
                            byte hyphen3,
-                           byte success_pin,
                            byte standby_pin,
+                           byte success_pin,
                            byte failure_pin,
                            byte input_disable_pin)
         : hyphen_pins{hyphen0, hyphen1, hyphen2, hyphen3},
-          success_pin(success_pin),
           standby_pin(standby_pin),
+          success_pin(success_pin),
           failure_pin(failure_pin),
           input_disable_pin(input_disable_pin) {
     for (byte pin : {hyphen0, hyphen1, hyphen2, hyphen3,
-                     success_pin, standby_pin, failure_pin,
+                     standby_pin, success_pin, failure_pin,
                      input_disable_pin}) {
         pinMode(pin, INPUT);
     }
@@ -47,12 +47,12 @@ byte OutputReader::readHyphenPosition() const {
     }
 }
 
-bool OutputReader::readSuccess() const {
-    return digitalRead(success_pin);
-}
-
 bool OutputReader::readStandby() const {
     return digitalRead(standby_pin);
+}
+
+bool OutputReader::readSuccess() const {
+    return digitalRead(success_pin);
 }
 
 bool OutputReader::readFailure() const {

@@ -9,7 +9,7 @@
 class OutputReader {
 public:
     OutputReader(byte hyphen0, byte hyphen1, byte hyphen, byte hyphen3,
-                 byte success_pin, byte standby_pin, byte failure_pin,
+                 byte standby_pin, byte success_pin, byte failure_pin,
                  byte input_disable_pin);
 
     /**
@@ -30,8 +30,8 @@ public:
 
 private:
     byte hyphen_pins[4];
-    byte success_pin;
     byte standby_pin;
+    byte success_pin;
     byte failure_pin;
     byte input_disable_pin;
 };

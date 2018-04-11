@@ -22,14 +22,14 @@ public:
     size_t check_count = 0;
     size_t successful_checks = 0;
 
-    static const unsigned long DEFAULT_TIMEOUT = 5000;
+    static const unsigned long DEFAULT_TIMEOUT = 5;
 
     const char *name;
 };
 
 #define __CHECK_SKELETON_NT(scenario, checker, name, timeout) ({   \
             bool _result = false;                                  \
-            const unsigned long _beginTime = micros();             \
+            const unsigned long _beginTime = millis();             \
             const unsigned long _endTime = _beginTime + timeout;   \
                                                                    \
             checker;                                               \
@@ -46,7 +46,7 @@ public:
                 Serial.print(F(" "));                              \
                 Serial.print(F("failed after "));                  \
                 Serial.print((timeout));                           \
-                Serial.println(F(" us"));                          \
+                Serial.println(F(" ms"));                          \
             }                                                      \
                                                                    \
             _result;                                               \
@@ -65,7 +65,7 @@ public:
  */
 #define CHECK_CONDITION_NT(scenario, condition, name, timeout) ({ \
             __CHECK_SKELETON_NT(scenario, {                       \
-                while (!_result && micros() < _endTime) {         \
+                while (!_result && millis() < _endTime) {         \
                     _result = (condition);                        \
                 }                                                 \
             }, name, timeout);                                    \
@@ -81,7 +81,7 @@ public:
 #define ENSURE_CONDITION_NT(scenario, condition, name, timeout) ({ \
             __CHECK_SKELETON_NT(scenario, ({                       \
                     _result = true;                                \
-                    while (_result && micros() < _endTime) {       \
+                    while (_result && millis() < _endTime) {       \
                         _result = _result && (condition);          \
                     }                                              \
                 }), name, timeout);                                \

@@ -21,7 +21,7 @@ void ValidatorWriter::writePosition(byte position) const {
 }
 
 void ValidatorWriter::setCorrect(bool correct) const {
-    return digitalWrite(correct_pin, correct ? HIGH : LOW);
+    digitalWrite(correct_pin, correct ? HIGH : LOW);
 }
 
 void ValidatorWriter::setEnter(bool enter) const {
