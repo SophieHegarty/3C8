@@ -12,7 +12,6 @@ public:
             byte valid_pin,
             byte clear_pin,
             byte enter_pin);
-    virtual ~InputReader() = default;
 
     byte readNumber() const;
     bool isNumberValid() const;

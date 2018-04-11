@@ -21,10 +21,7 @@ void ScenarioSelector::run() {
             enabled = true;
             previous_enable_on = current_time;
 
-            byte enabled_scenario = 0;
-            for (byte i = 0; i < 3; i++) {
-                enabled_scenario |= (digitalRead(pins[i]) ? 1 : 0) << i;
-            }
+            byte enabled_scenario = readBoardID();
 
             if (handlers[enabled_scenario] != NULL) {
                 (*handlers[enabled_scenario])();
@@ -36,4 +33,12 @@ void ScenarioSelector::run() {
             previous_enable_off = current_time;
         }
     }
+}
+
+byte ScenarioSelector::readBoardID() const {
+    byte enabled_scenario = 0;
+    for (byte i = 0; i < 3; i++) {
+        enabled_scenario |= (digitalRead(pins[i]) ? 1 : 0) << i;
+    }
+    return enabled_scenario;
 }

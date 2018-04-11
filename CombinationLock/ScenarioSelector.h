@@ -15,6 +15,8 @@ public:
     typedef void(*scenario_handler)();
     void setScenarioHandler(byte scenario, scenario_handler handler);
 
+    byte readBoardID() const;
+
 private:
     byte pins[3];
     byte disable_pin;

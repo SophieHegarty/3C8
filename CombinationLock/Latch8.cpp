@@ -31,16 +31,16 @@ void Latch8::writePin(byte pin, byte value) const {
         digitalWrite(address_pins[digit], bitRead(pin, digit) ? HIGH : LOW);
     }
     digitalWrite(data_pin, value);
-    delayMicroseconds(10);
+    delay(1);
     digitalWrite(write_disable, LOW);
-    delayMicroseconds(10);
+    delay(1);
     digitalWrite(write_disable, HIGH);
 }
 
 void Latch8::reset() const {
     if (reset_pin != BYTE_MAX) {
         digitalWrite(reset_pin, HIGH);
-        delayMicroseconds(10);
+        delay(1);
         digitalWrite(reset_pin, LOW);
     }
 }
