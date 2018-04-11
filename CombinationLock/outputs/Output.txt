@@ -1,0 +1,85 @@
+Beginning scenario OutputSection
+SECTION 3 incorrect inputs
+Test 1: success
+Test 2: success
+Test 3: success
+Test 4: success
+Test 5: success
+Test 6: success
+Test 7: success
+Waiting for incorrect message to expire...
+Test 8: success
+Test 9: success
+Test 10: success
+Test 11: success
+Test 12: success
+Test 13: success
+Test 14: success
+Test 15: success
+Waiting for incorrect message to expire...
+Test 16: success
+Test 17: success
+Test 18: success
+Test 19: success
+Test 20: success
+Test 21: success
+Test 22: success
+Test 23: success
+Test 24: success
+Test 25: success
+Test 26: success
+Test 27: success
+Test 28: success
+Test 29: success
+Test 30: success
+Test 31: success
+Test 32: success
+Test 33: success
+Test 34: success
+Test 35: success
+Test 36: success
+Test 37: success
+Test 38: success
+Test 39: success
+Test 40: success
+Test 41: success
+Test 42: success
+Test 43: success
+Test 44: success
+Waiting for lockout to expire...
+Test 45: success
+Successful so far
+
+SECTION Correct input after 0 incorrect inputs
+Test 46: success
+Test 47: success
+Test 48: success
+Test 49: success
+Waiting for correct message to expire...
+Test 50: success
+Successful so far
+
+SECTION Correct input after 1 incorrect inputs
+Waiting for incorrect message to expire...
+Test 51: success
+Test 52: success
+Test 53: success
+Test 54: success
+Test 55: success
+Waiting for correct message to expire...
+Test 56: success
+Successful so far
+
+SECTION Correct input after 2 incorrect inputs
+Waiting for incorrect message to expire...
+Test 57: success
+Waiting for incorrect message to expire...
+Test 58: success
+Test 59: success
+Test 60: success
+Test 61: success
+Test 62: success
+Waiting for correct message to expire...
+Test 63: success
+Successful so far
+Scenario OutputSection completed successfully
